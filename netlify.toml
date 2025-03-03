@@ -1,0 +1,23 @@
+[build]
+  # Répertoire à partir duquel démarrer le build
+  base = "."
+  
+  # Commande à exécuter pour construire l'application
+  command = "cd frontal && npm run build"
+  
+  # Répertoire qui contient le site static après le build
+  publish = "frontal/dist"
+  
+  # Environnement par défaut pour le build
+  environment = { NODE_VERSION = "16" }
+
+# Redirection des routes pour les applications SPA (Single Page Application)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Variables d'environnement pour la production
+[context.production.environment]
+  REACT_APP_API_URL = "https://pme-assistant-api.herokuapp.com/api"
+  NODE_ENV = "production"
