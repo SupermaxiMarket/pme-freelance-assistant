@@ -6,7 +6,7 @@
   command = "cd frontend && npm run build"
   
   # Répertoire qui contient le site static après le build
-  publish = "frontend/dist"
+  publish = "frontend/build"
   
   # Environnement par défaut pour le build
   environment = { NODE_VERSION = "16" }
