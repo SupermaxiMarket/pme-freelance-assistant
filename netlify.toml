@@ -3,7 +3,7 @@
   base = "."
   
   # Commande à exécuter pour construire l'application
-  command = "cd frontend && npm run build"
+  command = "cd frontend && npm install && npm run build"
   
   # Répertoire qui contient le site static après le build
   publish = "frontend/build"
