@@ -9,7 +9,7 @@
   publish = "frontend/build"
   
   # Environnement par défaut pour le build
-  environment = { NODE_VERSION = "16" }
+  environment = { NODE_VERSION = "18" }
 
 # Redirection des routes pour les applications SPA (Single Page Application)
 [[redirects]]
