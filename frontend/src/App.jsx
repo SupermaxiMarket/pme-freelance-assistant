@@ -13,11 +13,11 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 // Pages
 import Login from './pages/Login';
 // Autres imports à décommenter lorsque les pages seront créées
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 /*
 import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
-import ForgotPassword from './pages/ForgotPassword';
-import ResetPassword from './pages/ResetPassword';
 import Clients from './pages/Clients';
 import ClientDetail from './pages/ClientDetail';
 import Documents from './pages/Documents';
@@ -85,10 +85,10 @@ const App = () => {
             <Routes>
               {/* Routes publiques */}
               <Route path="/login" element={<Login />} />
-              {/* 
-              <Route path="/register" element={<Register />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password/:token" element={<ResetPassword />} />
+              {/* 
+              <Route path="/register" element={<Register />} />
               */}
               
               {/* Routes privées - à décommenter lorsque les composants seront créés */}

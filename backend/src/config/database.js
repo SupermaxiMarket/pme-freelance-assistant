@@ -35,9 +35,14 @@ const testConnection = async () => {
   }
 };
 
-// Tester la connexion en environnement de développement
+// Tester la connexion et synchroniser le modèle en développement
 if (NODE_ENV === 'development') {
   testConnection();
+  sequelize.sync({ alter: true }).then(() => {
+    console.log('Modèles synchronisés avec la base de données.');
+  }).catch(error => {
+    console.error('Erreur lors de la synchronisation des modèles:', error);
+  });
 }
 
 module.exports = sequelize;

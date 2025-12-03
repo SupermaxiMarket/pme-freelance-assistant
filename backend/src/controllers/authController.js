@@ -250,24 +250,33 @@ exports.forgotPassword = async (req, res) => {
     
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return res.status(404).json({ 
-        success: false, 
-        message: 'Aucun compte associé à cet email' 
+      // Pour des raisons de sécurité, ne pas révéler si l'email existe ou non
+      return res.status(200).json({ 
+        success: true, 
+        message: 'Si un compte est associé à cet email, un lien de réinitialisation a été envoyé.' 
       });
     }
     
-    // Générer un token de réinitialisation
+    // Générer un token de réinitialisation sécurisé
     const resetToken = crypto.randomBytes(32).toString('hex');
     
-    // Stocker le token (ici, on devrait l'enregistrer en base de données)
-    // Pour l'exemple, on pourrait ajouter un champ resetToken au modèle User
+    // Définir la date d'expiration (par exemple, 1 heure)
+    const expirationDate = new Date();
+    expirationDate.setHours(expirationDate.getHours() + 1);
     
-    // Simuler l'envoi d'un email (dans une vraie implémentation, utiliser un service d'email)
+    // Stocker le token et sa date d'expiration dans la base de données
+    user.reset_password_token = resetToken;
+    user.reset_password_token_expires_at = expirationDate;
+    await user.save();
+    
+    // En mode développement, on peut renvoyer le token pour faciliter les tests
+    // En production, il faudrait envoyer un email ici.
     console.log(`Simuler envoi d'email de réinitialisation à ${email} avec token: ${resetToken}`);
     
     res.status(200).json({
       success: true,
-      message: 'Un email de réinitialisation a été envoyé'
+      message: 'Un lien de réinitialisation a été généré (DEV MODE)',
+      resetToken: resetToken // ATTENTION: À ne pas faire en production
     });
   } catch (error) {
     console.error('Erreur lors de la demande de réinitialisation:', error);
@@ -282,12 +291,25 @@ exports.forgotPassword = async (req, res) => {
 exports.resetPassword = async (req, res) => {
   try {
     const { token, password } = req.body;
-    
-    // Vérifier le token (ici, on devrait le rechercher en base de données)
-    // et récupérer l'ID utilisateur associé
-    const userId = null; // À remplacer par la recherche du token
-    
-    if (!userId) {
+
+    if (!token || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Le token et le nouveau mot de passe sont requis'
+      });
+    }
+
+    // Trouver l'utilisateur avec ce token et vérifier qu'il n'a pas expiré
+    const user = await User.findOne({
+      where: {
+        reset_password_token: token,
+        reset_password_token_expires_at: {
+          [require('sequelize').Op.gt]: new Date()
+        }
+      }
+    });
+
+    if (!user) {
       return res.status(400).json({
         success: false,
         message: 'Token invalide ou expiré'
@@ -295,15 +317,13 @@ exports.resetPassword = async (req, res) => {
     }
     
     // Mettre à jour le mot de passe
-    const user = await User.findByPk(userId);
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'Utilisateur non trouvé'
-      });
-    }
-    
+    // Le hook beforeUpdate s'occupera du hachage
     user.password = password;
+    
+    // Invalider le token
+    user.reset_password_token = null;
+    user.reset_password_token_expires_at = null;
+    
     await user.save();
     
     res.status(200).json({
