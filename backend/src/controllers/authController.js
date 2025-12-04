@@ -1,6 +1,6 @@
 // backend/src/controllers/authController.js
 const jwt = require('jsonwebtoken');
-const { User } = require('../models');
+const User = require('../models/User');
 const crypto = require('crypto');
 
 // Durée de validité des tokens
