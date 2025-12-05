@@ -8,7 +8,7 @@ const authRoutes = require('./auth');
 // const taskRoutes = require('./tasks');
 // const paymentRoutes = require('./payments');
 // const dashboardRoutes = require('./dashboard');
-const aiRoutes = require('./ai');
+// const aiRoutes = require('./ai');
 
 // Définir les préfixes pour chaque groupe de routes
 router.use('/auth', authRoutes);
@@ -17,6 +17,6 @@ router.use('/auth', authRoutes);
 // router.use('/tasks', taskRoutes);
 // router.use('/payments', paymentRoutes);
 // router.use('/dashboard', dashboardRoutes);
-router.use('/ai', aiRoutes);
+// router.use('/ai', aiRoutes);
 
 module.exports = router;
