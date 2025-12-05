@@ -6,7 +6,7 @@ const authRoutes = require('./auth');
 // const clientRoutes = require('./clients');
 // const documentRoutes = require('./documents');
 // const taskRoutes = require('./tasks');
-const paymentRoutes = require('./payments');
+// const paymentRoutes = require('./payments');
 const dashboardRoutes = require('./dashboard');
 const aiRoutes = require('./ai');
 
@@ -15,7 +15,7 @@ router.use('/auth', authRoutes);
 // router.use('/clients', clientRoutes);
 // router.use('/documents', documentRoutes);
 // router.use('/tasks', taskRoutes);
-router.use('/payments', paymentRoutes);
+// router.use('/payments', paymentRoutes);
 router.use('/dashboard', dashboardRoutes);
 router.use('/ai', aiRoutes);
 
