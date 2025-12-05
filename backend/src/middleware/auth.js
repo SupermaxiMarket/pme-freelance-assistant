@@ -1,6 +1,6 @@
 // backend/src/middleware/auth.js
 const jwt = require('jsonwebtoken');
-const { User } = require('../models');
+const User = require('../models/User');
 
 // Middleware pour vérifier le token JWT et authentifier l'utilisateur
 exports.authenticate = async (req, res, next) => {
