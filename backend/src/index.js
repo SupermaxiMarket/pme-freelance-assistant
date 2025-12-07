@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 });
 
 // Middleware de gestion des erreurs
-app.use((err, req, res, next) => {
+app.use((err, req, res, _next) => {
   console.error(err.stack);
   
   res.status(err.statusCode || 500).json({

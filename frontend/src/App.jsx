@@ -15,9 +15,8 @@ import Login from './pages/Login';
 // Autres imports à décommenter lorsque les pages seront créées
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
-/*
-import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
 import Clients from './pages/Clients';
 import ClientDetail from './pages/ClientDetail';
 import Documents from './pages/Documents';
@@ -30,10 +29,9 @@ import PaymentDetail from './pages/PaymentDetail';
 import Settings from './pages/Settings';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
-*/
 
 // Composants de mise en page
-// import MainLayout from './components/layout/MainLayout';
+import MainLayout from './components/layout/MainLayout';
 
 // Route privée qui nécessite une authentification
 const PrivateRoute = ({ children }) => {
@@ -87,9 +85,7 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password/:token" element={<ResetPassword />} />
-              {/* 
               <Route path="/register" element={<Register />} />
-              */}
               
               {/* Routes privées - à décommenter lorsque les composants seront créés */}
               <Route 
@@ -101,7 +97,6 @@ const App = () => {
                 } 
               />
               
-              {/*
               <Route 
                 path="/dashboard" 
                 element={
@@ -235,7 +230,6 @@ const App = () => {
               />
               
               <Route path="*" element={<NotFound />} />
-              */}
             </Routes>
           </AuthProvider>
         </Router>
